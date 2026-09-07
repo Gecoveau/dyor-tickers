@@ -35,35 +35,31 @@ The property inspector (the settings panel in the Stream Deck app) has:
 Press a key any time to force an immediate refresh. Quotes are briefly cached so
 multiple tiles of the same asset — and rapid refreshes — share one network call.
 
-## Develop
+## How it's built
+
+- **TypeScript**, bundled with **Rollup** into a single self-contained
+  `bin/plugin.js` so the plugin ships without `node_modules`. Built on Elgato's
+  official [`@elgato/streamdeck`](https://www.npmjs.com/package/@elgato/streamdeck) SDK.
+- **Keyless data.** Stock quotes come from Yahoo Finance's public v8 chart
+  endpoint (price + prior close in one call, no crumb/cookie); crypto from
+  CoinGecko's public API. No keys, no accounts, no per-user rate-limit setup.
+- **Tiles are rendered SVG.** Each key is drawn as a 144×144 SVG — price,
+  colored change, optional sparkline with a dashed reference baseline, and the
+  asset logo — then handed to Stream Deck as a base64 data URI.
+- **Shared quote cache.** A short-lived in-memory cache means multiple tiles of
+  the same asset, rapid refreshes, and manual presses collapse into one network
+  call — the main defense against upstream `429`s. A transient error keeps the
+  last good price on screen instead of blanking the tile.
+- **Reaction animations.** Crossing a high/low alert level plays a short
+  fireworks 🎆 or "nuke" 💥 sequence, throttled to once per hour per direction.
+
+### Build from source
 
 ```bash
 npm install
-npm run build          # bundle src -> com.skizd.deckedstream.sdPlugin/bin/plugin.js
-npm run watch          # rebuild + restart the plugin in Stream Deck on change
+npm run build   # bundle src -> com.skizd.deckedstream.sdPlugin/bin/plugin.js
+npm run watch   # rebuild + hot-restart the plugin in Stream Deck on change
 ```
-
-Link the plugin into the Stream Deck app for local testing (installs the folder,
-not the packed file):
-
-```bash
-npx streamdeck link com.skizd.deckedstream.sdPlugin
-npx streamdeck restart com.skizd.deckedstream
-```
-
-## Package for the Marketplace
-
-```bash
-npx streamdeck validate com.skizd.deckedstream.sdPlugin
-npx streamdeck pack com.skizd.deckedstream.sdPlugin
-```
-
-Produces `com.skizd.deckedstream.streamDeckPlugin`. Submit it at
-<https://marketplace.elgato.com/> (a free Maker account is required).
-
-> **Icons:** the art in `imgs/` is flat placeholder graphics — replace it with
-> real artwork before submitting to the Marketplace, which reviews listing art.
-> `scripts/gen-icons.mjs` regenerates the placeholders.
 
 ## Project layout
 
@@ -78,9 +74,9 @@ src/
 com.skizd.deckedstream.sdPlugin/
   manifest.json            plugin + action definition
   ui/ticker.html           property inspector (settings panel)
-  imgs/                     icons (placeholders — replace before submitting)
+  imgs/                     plugin + action icons (the rocket-O logo)
   bin/plugin.js            bundled output (git-ignored)
-scripts/gen-icons.mjs      regenerates placeholder PNGs
+scripts/gen-icons.mjs      generates the icon PNGs from assets/rocket.mjs
 ```
 
 ## License
