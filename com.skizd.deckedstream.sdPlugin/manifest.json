@@ -8,9 +8,9 @@
   "Category": "DYOR Tickers",
   "CategoryIcon": "imgs/plugin/category",
   "Icon": "imgs/plugin/marketplace",
-  "SDKVersion": 2,
+  "SDKVersion": 3,
   "Software": {
-    "MinimumVersion": "6.5"
+    "MinimumVersion": "6.9"
   },
   "OS": [
     {
