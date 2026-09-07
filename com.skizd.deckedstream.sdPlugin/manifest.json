@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
+  "UUID": "com.skizd.deckedstream",
+  "Name": "DYOR Tickers",
+  "Version": "0.1.0.0",
+  "Author": "Gecoveau",
+  "Description": "Live stock and crypto prices on your keys. Type a ticker, flip the stock/crypto switch, done. No API keys required.",
+  "Category": "DYOR Tickers",
+  "CategoryIcon": "imgs/plugin/category",
+  "Icon": "imgs/plugin/marketplace",
+  "SDKVersion": 2,
+  "Software": {
+    "MinimumVersion": "6.5"
+  },
+  "OS": [
+    {
+      "Platform": "windows",
+      "MinimumVersion": "10"
+    },
+    {
+      "Platform": "mac",
+      "MinimumVersion": "12"
+    }
+  ],
+  "Nodejs": {
+    "Version": "20",
+    "Debug": "enabled"
+  },
+  "CodePath": "bin/plugin.js",
+  "Actions": [
+    {
+      "Name": "Ticker Price",
+      "UUID": "com.skizd.deckedstream.ticker",
+      "Icon": "imgs/actions/ticker/icon",
+      "Tooltip": "Show a live stock or crypto price. Set the ticker in the property inspector.",
+      "PropertyInspectorPath": "ui/ticker.html",
+      "Controllers": [
+        "Keypad"
+      ],
+      "States": [
+        {
+          "Image": "imgs/actions/ticker/key",
+          "TitleAlignment": "middle"
+        }
+      ]
+    }
+  ]
+}

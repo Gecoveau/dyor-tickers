@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="https://sdpi-components.dev/releases/v4/sdpi-components.js"></script>
+  </head>
+  <body>
+    <sdpi-item label="Type">
+      <sdpi-select setting="assetType" default="stock">
+        <option value="stock">Stock</option>
+        <option value="crypto">Crypto</option>
+      </sdpi-select>
+    </sdpi-item>
+
+    <sdpi-item label="Ticker">
+      <sdpi-textfield
+        setting="ticker"
+        placeholder="AAPL  /  bitcoin"
+        required>
+      </sdpi-textfield>
+    </sdpi-item>
+
+    <sdpi-item label="Display as">
+      <sdpi-textfield
+        setting="displayName"
+        placeholder="optional, e.g. GOLD">
+      </sdpi-textfield>
+    </sdpi-item>
+
+    <sdpi-item label="Currency">
+      <sdpi-select setting="currency" default="usd">
+        <option value="usd">USD $</option>
+        <option value="eur">EUR €</option>
+        <option value="gbp">GBP £</option>
+        <option value="jpy">JPY ¥</option>
+        <option value="aud">AUD</option>
+        <option value="cad">CAD</option>
+      </sdpi-select>
+    </sdpi-item>
+
+    <sdpi-item label="Refresh · 15–300s">
+      <sdpi-textfield
+        setting="refresh"
+        pattern="[0-9]{1,3}"
+        placeholder="60"
+        maxlength="3">
+      </sdpi-textfield>
+    </sdpi-item>
+
+    <sdpi-item label="Asset logo">
+      <sdpi-checkbox setting="showLogo" label="Show logo"></sdpi-checkbox>
+    </sdpi-item>
+
+    <sdpi-item label="24h sparkline">
+      <sdpi-checkbox setting="sparkline" label="Show mini chart"></sdpi-checkbox>
+    </sdpi-item>
+
+    <hr />
+
+    <sdpi-item label="Alert high 🎆">
+      <sdpi-textfield setting="highLevel" placeholder="fireworks at/above"></sdpi-textfield>
+    </sdpi-item>
+
+    <sdpi-item label="Alert low 💥">
+      <sdpi-textfield setting="lowLevel" placeholder="nuke at/below"></sdpi-textfield>
+    </sdpi-item>
+
+    <details style="margin-top: 12px;">
+      <summary style="cursor: pointer; font-weight: 600; font-size: 13px; padding: 4px 0;">How to fill this in</summary>
+      <div style="font-size: 12.5px; line-height: 1.6; color: #e6e6e6; margin: 6px 0 4px;">
+        <p style="margin: 0 0 10px;">No API keys needed — prices are free &amp; public. Tap a key to refresh instantly.</p>
+
+        <p style="margin: 0 0 8px;">
+          <b style="color:#fff;">Stock</b> — exchange symbol like
+          <code>AAPL</code>, <code>MSFT</code>, <code>SPY</code>.
+        </p>
+        <p style="margin: 0 0 8px;">
+          <b style="color:#fff;">Crypto</b> — CoinGecko <i>id</i> (not the symbol) like
+          <code>bitcoin</code>, <code>ethereum</code>, <code>solana</code>.
+          <a href="https://www.coingecko.com/" target="_blank" style="color:#2fd0d6;">Find ids ↗</a>
+        </p>
+        <p style="margin: 0 0 8px;">
+          <b style="color:#fff;">Display as</b> — optional label shown instead of the symbol.
+        </p>
+        <p style="margin: 0;">
+          <b style="color:#fff;">Alerts</b> — 🎆 fires at/above the high, 💥 at/below the low
+          (once per hour each).
+        </p>
+      </div>
+    </details>
+
+    <style>
+      code {
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: 3px;
+        padding: 1px 5px;
+        font-family: Consolas, monospace;
+        color: #fff;
+      }
+    </style>
+  </body>
+</html>

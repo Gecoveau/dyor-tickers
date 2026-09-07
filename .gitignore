@@ -1,0 +1,5 @@
+node_modules/
+com.skizd.deckedstream.sdPlugin/bin/
+*.streamDeckPlugin
+.DS_Store
+logs/
