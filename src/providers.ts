@@ -141,19 +141,36 @@ export async function fetchCryptoQuote(
   });
 }
 
-/** 24h price series from CoinGecko for the sparkline. Best-effort. */
+// History changes slowly, so cache it well beyond the price TTL and reuse the
+// last-known series when a refetch fails — this keeps the sparkline from
+// flickering off on transient 429s (and cuts how often we call market_chart).
+const HISTORY_TTL = 5 * 60_000;
+const historyCache = new Map<string, { at: number; data: number[] }>();
+
+/** 24h price series from CoinGecko for the sparkline. Best-effort, sticky. */
 async function fetchCryptoHistory(coin: string, vs: string): Promise<number[] | undefined> {
+  const key = `${coin}:${vs}`;
+  const prev = historyCache.get(key);
+  if (prev && Date.now() - prev.at < HISTORY_TTL) {
+    return prev.data;
+  }
+
   try {
     const url = new URL(`https://api.coingecko.com/api/v3/coins/${coin}/market_chart`);
     url.searchParams.set("vs_currency", vs);
     url.searchParams.set("days", "1");
     const res = await fetchJson(url);
     if (!res.ok) {
-      return undefined;
+      return prev?.data; // keep the last good series through a 429
     }
     const data = (await res.json()) as { prices?: Array<[number, number]> };
-    return data.prices?.map(([, p]) => p);
+    const series = data.prices?.map(([, p]) => p);
+    if (series && series.length >= 2) {
+      historyCache.set(key, { at: Date.now(), data: series });
+      return series;
+    }
+    return prev?.data;
   } catch {
-    return undefined;
+    return prev?.data;
   }
 }
