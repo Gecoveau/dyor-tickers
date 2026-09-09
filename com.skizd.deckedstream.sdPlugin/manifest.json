@@ -2,7 +2,7 @@
   "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json",
   "UUID": "com.skizd.deckedstream",
   "Name": "DYOR Tickers",
-  "Version": "0.1.1.0",
+  "Version": "0.1.0.0",
   "Author": "Gecoveau",
   "Description": "Live stock and crypto prices on your keys. Type a ticker, flip the stock/crypto switch, done. No API keys required.",
   "Category": "DYOR Tickers",
