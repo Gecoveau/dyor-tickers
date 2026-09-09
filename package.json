@@ -1,6 +1,6 @@
 {
   "name": "dyor-tickers",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Stream Deck tiles for live stock and crypto prices. No API keys required.",
   "scripts": {
     "build": "rollup -c",

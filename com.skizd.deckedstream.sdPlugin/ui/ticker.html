@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <title>DYOR Tickers</title>
     <script src="https://sdpi-components.dev/releases/v4/sdpi-components.js"></script>
   </head>
   <body>
@@ -15,7 +16,7 @@
     <sdpi-item label="Ticker">
       <sdpi-textfield
         setting="ticker"
-        placeholder="AAPL  /  bitcoin"
+        placeholder="e.g. AAPL (stock) or bitcoin (crypto id)"
         required>
       </sdpi-textfield>
     </sdpi-item>
@@ -23,18 +24,18 @@
     <sdpi-item label="Display as">
       <sdpi-textfield
         setting="displayName"
-        placeholder="optional, e.g. GOLD">
+        placeholder="Optional label, e.g. GOLD">
       </sdpi-textfield>
     </sdpi-item>
 
-    <sdpi-item label="Currency">
+    <sdpi-item label="Currency (crypto)">
       <sdpi-select setting="currency" default="usd">
         <option value="usd">USD $</option>
         <option value="eur">EUR €</option>
         <option value="gbp">GBP £</option>
         <option value="jpy">JPY ¥</option>
-        <option value="aud">AUD</option>
-        <option value="cad">CAD</option>
+        <option value="aud">AUD $</option>
+        <option value="cad">CAD $</option>
       </sdpi-select>
     </sdpi-item>
 
@@ -58,11 +59,11 @@
     <hr />
 
     <sdpi-item label="Alert high 🎆">
-      <sdpi-textfield setting="highLevel" placeholder="fireworks at/above"></sdpi-textfield>
+      <sdpi-textfield setting="highLevel" placeholder="Price, e.g. 250"></sdpi-textfield>
     </sdpi-item>
 
     <sdpi-item label="Alert low 💥">
-      <sdpi-textfield setting="lowLevel" placeholder="nuke at/below"></sdpi-textfield>
+      <sdpi-textfield setting="lowLevel" placeholder="Price, e.g. 180"></sdpi-textfield>
     </sdpi-item>
 
     <details style="margin-top: 12px;">
